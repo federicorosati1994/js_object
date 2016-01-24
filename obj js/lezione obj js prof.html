@@ -1,0 +1,241 @@
+// file obj.js
+
+/*
+book
+- title: string
+- author: string
+- year of publication: int
+- publisher: string
+- genre: string
+- number of pages: int
+- price: double
+
+box
+- height: int - 6
+- width: int - 5
+- length: int - 2
+- volume: int - 60
+- material: string - 'cardboard'
+- contents: array - book array
+
+var year = 10;
+year = 'ten';//OK in JavaScript
+
+int year = 10;
+year = 'ten'; //error in Java
+
+*/
+//JS code
+
+var bookArray = ['Le avv SH', 'HP', 'signori degli'];
+
+var myBox = {
+	height: 2,
+	width : 10,
+	length: 2,
+    volume: 40,
+    material: 'cardboard',
+	contents: bookArray,
+	'# of books' : 3,
+	book1 : 'Libro 1',
+};
+
+//CRUD: create, read, update, delete
+
+//READ
+console.log('myBox' + myBox);
+console.log('myBox.height = ' + myBox.height);
+console.log('myBox.volume = ' + myBox.volume);
+console.log('myBox.contents = ' + myBox.contents);
+
+console.log('Add item to array');
+bookArray.push('Alice nel paese');
+
+console.log('Add item to myBox.contents');
+myBox.contents.push('Hunger game');
+
+console.log('myBox.contents = ' + myBox.contents);
+
+console.log('myBox.contents[2] = ' + myBox.contents[2]);
+
+console.log('myBox.contents.length = ' + myBox.contents.length);
+
+console.log('Operation with obj properties')
+console.log(myBox.contents.length + 2);
+
+//UPDATE
+console.log('Change height value to 3');
+myBox.height = 3;
+
+console.log('recalculate myBox.volume');
+myBox.volume = myBox.height * myBox.length * myBox.width; 
+console.log('myBox.volume = ' + myBox.volume);
+
+console.log('myBox.creator = ' + myBox.creator)
+console.log('add creationDate property to mybox')
+myBox.creator = 'Daniele';
+console.log('myBox.creator = ' + myBox.creator);
+
+var key ='book' + '1'; 
+console.log(myBox[key])
+
+/*
+1 - console.log(myBox[key])
+2 - console.log(myBox['book1'])
+3 - console.log(myBox.book1)
+4 - console.log('Libro 1')
+*/
+
+console.log('number of books = ' + myBox['# of books']);
+myBox['# of books'] = 5
+//DELETE
+console.log('Delete myBox.material')
+console.log(myBox.material)
+console.log(delete myBox.material);
+console.log(delete myBox.fakeMaterial);
+console.log(myBox.material);
+
+
+// Dependencies between properties
+
+console.log(myBox);
+
+/*
+function addBook( title ){
+	myBox.contents.push(title);
+	myBox['# of books']++;	
+}
+
+
+addBook('My boox');
+console.log(myBox);
+
+*/
+
+
+// Book model
+delete myBox.contents;
+myBox.contents = [];
+
+//.. add books
+
+var book = {
+	title : 'My Title',
+	author: 'My Author'
+}
+
+myBox.contents.push(book);
+console.log(myBox.contents);
+
+function addBook( box, title, author ){
+
+	//create temp book
+	var book = {
+		title : title,
+		author: author,
+		timestamp: new Date()
+	}
+	//push book
+	box.contents.push(book);
+	//update books ammount
+	box['# of books'] = box.contents.length;	
+
+	return book;
+}
+
+console.log(addBook(myBox, 'Libro 3', 'Author 1'));
+
+//Read a property of a property
+//myBox.contents[0] is a book obj so I can read its 'title'
+console.log(myBox.contents[0].title)
+
+// file aquarium.js
+var aquarium = {
+    Nemo: { type: "fish", species: "clownfish", length: 3.7 /* number */ }, //obj
+    Marlin: { type: "fish", species: "clownfish", length: 4.1 },
+    Dory: { type: "fish", species: "blue tang", length: 6.2 },
+    Peach: { type: "echinoderm", species: "starfish", length: 5.3 },
+    "Coral Castle": { type: "environment", material: "coquina", moves: false },
+    "Dragon Statue": { type: "environment", material: "plastic", moves: false },
+    addCritter : function( name, type, species, length ){
+    	console.log('Call of addCritter() [ params: ' + name, type, species, length + ']');
+
+	    this[name] = {type: type, species: species, length: length};
+	},
+	addToy: function( name, type, material, moves ){
+    	this[name] = {type: type, material: material, moves: moves};
+	}
+};
+
+aquarium.addCritter('Luigi', 'fish', 'shark', 150);
+
+//console.log(aquarium);
+
+aquarium.takeOut = function(name) {
+	console.log('Call of takeOut() [ params: ' + name + ']');
+
+	var temp = this[name];
+	//console.log(this[name].name)
+	delete this[name]; // delete property equals to name's value
+	//delete this.name; // delete property 'name'
+	return temp;
+}
+
+console.log('Removed obj')
+var deletedObj = aquarium.takeOut('Nemo');
+
+document.getElementById('type').innerHTML = deletedObj.type;
+
+//loop on obj properties
+
+aquarium.countType = function(type) {
+	//console.log('Count "' + type+ '"');
+	var fishAmmount = 0;
+
+	// super complicated code
+
+	for( var key in this){
+		//console.log(key + ' is a ' + type + '?')
+		if (this[key].type === type) {
+			//console.log(true)
+			fishAmmount++;
+
+		} else {
+			//console.log(false)
+		} 
+
+	}
+	//console.log('# fish: ' + fishAmmount)
+	return fishAmmount;
+};
+
+aquarium.countFish = function() { 
+	return this.countType('fish');
+};
+
+aquarium.countEnvironments = function() { 
+	return this.countType('environment');
+};
+
+var fishAmm = aquarium.countFish(),
+	environmentsAmm = aquarium.countEnvironments();
+
+console.log('Fish + Environments: ' + ( fishAmm + environmentsAmm ));
+
+// index.html
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	
+</head>
+<body>
+
+	<div id="type"></div>
+	<!-- <script src="./scripts/obj.js"></script> -->
+
+	<script src="./scripts/aquarium.js"></script>
+
+</html>

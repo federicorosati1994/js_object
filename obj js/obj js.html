@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<script type="text/javascript">
+
+	var bookArray = ["Sherlock", "HP", "Signore Anelli"];
+
+	var myBox = {
+		height: 2,
+		width1: 5,
+		width2: 10,
+		contents: bookArray,
+		ahboh : function(parametri){console.log(myBox.height)}
+	}
+
+	console.log("myBox.height1: "+myBox.height);
+	console.log("myBox.contents1: "+myBox.contents);
+
+	bookArray.push("Alice");
+	console.log("myBox.contents2: "+myBox.contents);
+	console.log("Change height to 3");
+
+	myBox.height = 3;
+	console.log("myBox.height2: "+myBox.height);
+
+	console.log("prova: "+myBox.contents[2]);
+	console.log("length: "+myBox.contents.length);
+	for(i=1;i<3;i++){
+		var key = "width"+i;
+		console.log(myBox[key]);
+	};
+
+	console.log(myBox.width2);
+	delete myBox.width2;
+	console.log(myBox.width2);
+
+	myBox.ahboh();
+
+	myBox.takeOut = function(name){
+		delete this[name]; //parametro name accessibile che si rifà al parametro della funzione
+		delete this.name; //parametro name non accessibile
+	}
+</script>
+</body>
+</html>
