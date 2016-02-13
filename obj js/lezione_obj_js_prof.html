@@ -1,6 +1,4 @@
-// file obj.js
 
-/*
 book
 - title: string
 - author: string
@@ -223,6 +221,7 @@ var fishAmm = aquarium.countFish(),
 console.log('Fish + Environments: ' + ( fishAmm + environmentsAmm ));
 
 // index.html
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -236,6 +235,80 @@ console.log('Fish + Environments: ' + ( fishAmm + environmentsAmm ));
 	<div id="type"></div>
 	<!-- <script src="./scripts/obj.js"></script> -->
 
-	<script src="./scripts/aquarium.js"></script>
+
+	<script src="./scripts/aquarium.js">
+
+		var aquarium = {
+		    Nemo: { type: "fish", species: "clownfish", length: 3.7 /* number */ }, //obj
+		    Marlin: { type: "fish", species: "clownfish", length: 4.1 },
+		    Dory: { type: "fish", species: "blue tang", length: 6.2 },
+		    Peach: { type: "echinoderm", species: "starfish", length: 5.3 },
+		    "Coral Castle": { type: "environment", material: "coquina", moves: false },
+		    "Dragon Statue": { type: "environment", material: "plastic", moves: false },
+		    addCritter : function( name, type, species, length ){
+		    	console.log('Call of addCritter() [ params: ' + name, type, species, length + ']');
+
+			    this[name] = {type: type, species: species, length: length};
+			},
+			addToy: function( name, type, material, moves ){
+		    	this[name] = {type: type, material: material, moves: moves};
+			}
+		};
+
+		aquarium.addCritter('Luigi', 'fish', 'shark', 150);
+
+		//console.log(aquarium);
+
+		aquarium.takeOut = function(name) {
+			console.log('Call of takeOut() [ params: ' + name + ']');
+
+			var temp = this[name];
+			//console.log(this[name].name)
+			delete this[name]; // delete property equals to name's value
+			//delete this.name; // delete property 'name'
+			return temp;
+		}
+
+		console.log('Removed obj')
+		var deletedObj = aquarium.takeOut('Nemo');
+
+		document.getElementById('type').innerHTML = deletedObj.type;
+
+		//loop on obj properties
+
+		aquarium.countType = function(type) {
+			//console.log('Count "' + type+ '"');
+			var fishAmmount = 0;
+
+			// super complicated code
+
+			for( var key in this){
+				//console.log(key + ' is a ' + type + '?')
+				if (this[key].type === type) {
+					//console.log(true)
+					fishAmmount++;
+
+				} else {
+					//console.log(false)
+				} 
+
+			}
+			//console.log('# fish: ' + fishAmmount)
+			return fishAmmount;
+		};
+
+		aquarium.countFish = function() { 
+			return this.countType('fish');
+		};
+
+		aquarium.countEnvironments = function() { 
+			return this.countType('environment');
+		};
+
+		var fishAmm = aquarium.countFish(),
+			environmentsAmm = aquarium.countEnvironments();
+
+		console.log('Fish + Environments: ' + ( fishAmm + environmentsAmm ));
+	</script>
 
 </html>

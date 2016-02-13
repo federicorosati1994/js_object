@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<script type="text/javascript">
+
+	var zoo = {
+		mammiferi : {
+			scimmia : {
+				zampe : 4
+			},
+			cane : {
+				zampe : 4
+			}
+		},
+		rettili : {
+			coccodrillo : {
+				zampe : 4
+			},
+			serpente : {
+				zampe : 0
+			}
+		},
+		ovipari : {
+			piccioni : {
+				zampe : 2
+			}
+		},
+		countZampeInCategorie : function(category){
+			var tot = 0;
+			for(var animali in category){
+				tot += category[animali].zampe;
+			};
+			return tot;
+		},
+		countZampeZoo : function(obj){
+			var tot = 0;
+			for(var animali in obj){
+				tot += countZampeInCategorie(obj[animali]);
+			};
+			return tot;
+		}
+	}
+
+	var totZampe = zoo.countZampeZoo(zoo);
+
+	console.log(totZampe);
+
+</script>
+</body>
+</html>

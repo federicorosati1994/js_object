@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+	<script type="text/javascript">
+		var officina = {
+			lamborghini : {
+				gallardo : {
+					numero_passeggeri : 2, cilindrata : 5204
+				},
+				aventador : {
+					numero_passeggeri : 2, cilindrata : 6498
+				},
+				huracan : {
+					numero_passeggeri : 2, cilindrata : 5204
+				}
+			},
+			ferrari : {
+				f12berlinetta : {
+					numero_passeggeri : 2, cilindrata : 6262
+				},
+				california : {
+					numero_passeggeri : 2, cilindrata : 4296
+				},
+				laferrari : {
+					numero_passeggeri : 2, cilindrata : 6262
+				}
+			},
+			fiat : {
+				panda : {
+					numero_passeggeri : 4, cilindrata : 1242
+				},
+				punto : {
+					numero_passeggeri : 4, cilindrata : 1368
+				},
+				freemont : {
+					numero_passeggeri : 7, cilindrata : 1956
+				}
+			},
+			audi : {
+				a1 : {
+					numero_passeggeri : 4, cilindrata : 1197
+				},
+				a3 : {
+					numero_passeggeri : 5, cilindrata : 1896
+				},
+				r8 : {
+					numero_passeggeri : 2, cilindrata : 4163
+				}
+			},
+			ford : {
+				fiesta : {
+					numero_passeggeri : 5, cilindrata : 1400 
+				},
+				focus : {
+					numero_passeggeri : 5, cilindrata : 1.560
+				},
+				kuga : {
+					numero_passeggeri : 5, cilindrata : 1997
+				}
+			},
+			numeroPasseggeri : function(brand){
+				console.log(officina[brand])
+			}
+		}
+
+		officina.numeroPasseggeri("ford");
+		
+		//numero_passeggeri();
+		//console.log(officina.lamborghini.numero_passeggeri);
+	</script>
+</body>
+</html>
